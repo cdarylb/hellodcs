@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image du Jour</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <img id="dailyImage" src="" alt="Image du jour">
+    
+    <script>
+        async function fetchImages() {
+            try {
+                const response = await fetch('images.json');
+                return await response.json();
+            } catch (error) {
+                console.error("Erreur lors du chargement des images:", error);
+                return [];
+            }
+        }
+
+        function getImageOfTheDay(images) {
+            const today = new Date();
+            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+            const imageIndex = dayOfYear % images.length;
+            return images[imageIndex];
+        }
+
+        async function setDailyImage() {
+            const images = await fetchImages();
+            if (images.length > 0) {
+                const imageOfTheDay = getImageOfTheDay(images);
+                const dailyImage = document.getElementById('dailyImage');
+                dailyImage.src = 'images/' + imageOfTheDay;
+            } else {
+                console.error("Aucune image trouvée dans le fichier JSON.");
+            }
+        }
+
+        setDailyImage();
+    </script>
+</body>
+</html>
