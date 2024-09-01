@@ -7,25 +7,56 @@
     <style>
         body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
+            height: 100vh;
+            justify-content: center;
         }
         img {
             max-width: 80%;
             max-height: 80%;
             border-radius: 10px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            width: 50%;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        button:hover:not(:disabled) {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <img id="dailyImage" src="" alt="Image du jour">
     
+    <div class="navigation">
+        <button id="previousBtn">Précédent</button>
+        <button id="nextBtn">Suivant</button>
+    </div>
+    
     <script>
+        let currentDayOffset = 0;
+
         async function fetchImages() {
             try {
                 const response = await fetch('images.json');
@@ -36,25 +67,47 @@
             }
         }
 
-        function getImageOfTheDay(images) {
+        function getImageForDay(images, dayOffset) {
             const today = new Date();
-            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+            const targetDate = new Date(today.getTime() - (dayOffset * 86400000));
+            const dayOfYear = Math.floor((targetDate - new Date(targetDate.getFullYear(), 0, 0)) / 86400000);
             const imageIndex = dayOfYear % images.length;
             return images[imageIndex];
         }
 
-        async function setDailyImage() {
+        async function updateImage(dayOffset) {
             const images = await fetchImages();
             if (images.length > 0) {
-                const imageOfTheDay = getImageOfTheDay(images);
+                const imageSrc = 'images/' + getImageForDay(images, dayOffset);
                 const dailyImage = document.getElementById('dailyImage');
-                dailyImage.src = 'images/' + imageOfTheDay;
+                dailyImage.src = imageSrc;
             } else {
                 console.error("Aucune image trouvée dans le fichier JSON.");
             }
         }
 
-        setDailyImage();
+        function updateButtons() {
+            const previousBtn = document.getElementById('previousBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            previousBtn.disabled = (currentDayOffset >= 365); // Désactiver si on atteint l'année précédente
+            nextBtn.disabled = (currentDayOffset <= 0); // Désactiver si on est sur le jour actuel
+        }
+
+        document.getElementById('previousBtn').addEventListener('click', () => {
+            currentDayOffset++;
+            updateImage(currentDayOffset);
+            updateButtons();
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentDayOffset--;
+            updateImage(currentDayOffset);
+            updateButtons();
+        });
+
+        // Initialiser avec l'image du jour actuel
+        updateImage(currentDayOffset);
+        updateButtons();
     </script>
 </body>
 </html>
