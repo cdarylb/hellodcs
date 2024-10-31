@@ -1,125 +1,213 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The DCS picture of the day</title>
-    <style>
-          body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            height: 100vh;
-            justify-content: flex-start;
-        }
- .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #ffffff;
-    padding: 10px 20px;
-    border-bottom: 2px solid #e0e0e0;
-}
-        img {
-            max-width: 80%;
-            max-height: 80%;
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-            margin-bottom: 20px;
-        }
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            width: 50%;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        button:hover:not(:disabled) {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>The DCS picture of the day</h1>
-    </header>
-    
-    <img id="dailyImage" src="" alt="DCS pic of the day">
-    
-    <div class="navigation">
-        <button id="previousBtn">Précédent</button>
-        <button id="nextBtn">Suivant</button>
-    </div>
-    
-    <script>
-        let currentDayOffset = 0;
+<html lang="en">
+	
+	<head>
 
-        async function fetchImages() {
-            try {
-                const response = await fetch('images.json');
-                return await response.json();
-            } catch (error) {
-                console.error("Erreur lors du chargement des images:", error);
-                return [];
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>DCS pic of the day</title>
+		<link rel="icon" type="image/png" href="images/favicon.png">
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Share:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+		<link rel="stylesheet" href="fonts/fa/css/all.css">
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="style-global.css">
+		<link rel="stylesheet" href="style-4k.css">
+		<link rel="stylesheet" href="style-responsive.css">
+
+		<script src="js/jquery.js"></script>	
+		<script src="form/form.js"></script>
+	</head>
+
+
+	<body id="home">
+
+
+		<header class="p_fixed_advanced ts_1">
+			<div class="container dflex_basic">
+
+					<div class="header_col1">
+						<a href="#home" class="logo">
+							<img src="images/logo.png" alt="" class="img_basic_2 ts_1" />
+						</a>
+					</div>
+						
+
+					<div class="header_col2 dflex_basic">
+
+						<a href="javascript:void();" class="showmenu">
+							<span class="fa-solid fa-bars"></span>
+						</a>
+
+						<div class="header_menu">
+							<a href="javascript:void();" class="hidemenu">
+								<span class="fa-solid fa-times"></span>
+							</a>
+							<nav>
+								<ul>
+									<li class="active"><a href="#home">Home</a></li>
+									<li><a href="#about">About</a></li>
+									<li><a href="#practiceareas">Practice Areas</a></li>
+									<li><a href="#testimonials">Testimonials</a></li>
+									<li><a href="#contact">Contact</a></li>
+								</ul>
+							</nav>
+						</div>
+
+						<a href="tel:+1234567890" class="phone">
+							<span class="fa-solid fa-phone"></span>
+							+1123456789
+						</a>
+					</div>
+
+			</div>
+		</header>
+		<!-- HEADER -->
+
+
+
+		<section class="banner flf" id="banner">
+			<div class="container dtable p_relative">
+				
+
+				<div class="bannertext p_abs_basic_2">
+					<h1 class="lht_100">A Team of Trained Professional Lawyers.</h1>
+				</div>
+
+				
+                <img id="dailyImage" src="" alt="DCS pic of the day" class="img_basic imgfit_basic aspectratio_16_10" />
+			</div>
+		</section>
+		<!-- BANNER -->
+		
+
+
+
+		<section class="brands flf">
+			<div class="container dflex_vhalign dflex_wrap">
+				
+				<img src="images/brands/lawmagazine.png" alt="" class="img_basic_2 ts_1" />
+				<img src="images/brands/newstimes.png" alt="" class="img_basic_2 ts_1" />
+				<img src="images/brands/statepress.png" alt="" class="img_basic_2 ts_1" />
+				<img src="images/brands/lawyerreviews.png" alt="" class="img_basic_2 ts_1" />
+
+			</div>
+		</section>
+
+
+
+		<section class="about flf" id="about">
+			<div class="container">
+				
+
+				<div class="contentblock flf dflex_basic_2">
+
+					<div class="text">
+						<h2>About Us</h2>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non rutrum massa. Nulla rutrum pellentesque arcu, a venenatis enim lacinia in. Pellentesque eget ultricies lacus. Vivamus sit amet nisi ligula. Ut varius velit metus, in placerat arcu faucibus non. Aenean tristique tincidunt leo, quis tincidunt erat placerat a.
+						</p>
+						<p>
+							Cras suscipit quam nisi, ac dignissim leo aliquet sed. Morbi at accumsan felis. Proin tempor purus eu dignissim finibus. Etiam ut ultrices mauris, vel lacinia ipsum. Cras dignissim ipsum nec sem vestibulum, nec fermentum odio tincidunt. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+						</p>
+					</div>
+
+					<div class="picture childimg_basic">
+						<img src="images/pic-2.jpg" alt="" class="imgfit_basic aspectratio_1_1" />
+					</div>
+					
+				</div>
+				<!--contentblock-->
+
+
+			</div>
+		</section>
+		<!-- ABOUT -->
+
+		<footer class="flf">
+			<div class="container dflex_basic">
+				
+				<div class="copyright">
+					Copyright &copy; <span class="year"></span> LawStreet
+				</div>
+
+
+				<div class="social">
+					Follow
+					<a href="#"><span class="fa-brands fa-facebook"></span></a>
+					<a href="#"><span class="fa-brands fa-twitter"></span></a>
+					<a href="#"><span class="fa-brands fa-linkedin"></span></a>
+				</div>
+
+			</div>
+		</footer>
+		<!-- FOOTER -->
+
+
+		<script src="js/custom.js"></script>
+		<script src="js/scripts.js"></script>
+
+        <script>
+            let currentDayOffset = 0;
+    
+            async function fetchImages() {
+                try {
+                    const response = await fetch('images.json');
+                    return await response.json();
+                } catch (error) {
+                    console.error("Erreur lors du chargement des images:", error);
+                    return [];
+                }
             }
-        }
-
-        function getImageForDay(images, dayOffset) {
-            const today = new Date();
-            const targetDate = new Date(today.getTime() - (dayOffset * 86400000));
-            const dayOfYear = Math.floor((targetDate - new Date(targetDate.getFullYear(), 0, 0)) / 86400000);
-            const imageIndex = dayOfYear % images.length;
-            return images[imageIndex];
-        }
-
-        async function updateImage(dayOffset) {
-            const images = await fetchImages();
-            if (images.length > 0) {
-                const imageSrc = 'images/' + getImageForDay(images, dayOffset);
-                const dailyImage = document.getElementById('dailyImage');
-                dailyImage.src = imageSrc;
-            } else {
-                console.error("Aucune image trouvée dans le fichier JSON.");
+    
+            function getImageForDay(images, dayOffset) {
+                const today = new Date();
+                const targetDate = new Date(today.getTime() - (dayOffset * 86400000));
+                const dayOfYear = Math.floor((targetDate - new Date(targetDate.getFullYear(), 0, 0)) / 86400000);
+                const imageIndex = dayOfYear % images.length;
+                return images[imageIndex];
             }
-        }
-
-        function updateButtons() {
-            const previousBtn = document.getElementById('previousBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            previousBtn.disabled = (currentDayOffset >= 365); // Désactiver si on atteint l'année précédente
-            nextBtn.disabled = (currentDayOffset <= 0); // Désactiver si on est sur le jour actuel
-        }
-
-        document.getElementById('previousBtn').addEventListener('click', () => {
-            currentDayOffset++;
+    
+            async function updateImage(dayOffset) {
+                const images = await fetchImages();
+                if (images.length > 0) {
+                    const imageSrc = 'images/' + getImageForDay(images, dayOffset);
+                    const dailyImage = document.getElementById('dailyImage');
+                    dailyImage.src = imageSrc;
+                } else {
+                    console.error("Aucune image trouvée dans le fichier JSON.");
+                }
+            }
+    
+            function updateButtons() {
+                const previousBtn = document.getElementById('previousBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                previousBtn.disabled = (currentDayOffset >= 365); // Désactiver si on atteint l'année précédente
+                nextBtn.disabled = (currentDayOffset <= 0); // Désactiver si on est sur le jour actuel
+            }
+    
+            document.getElementById('previousBtn').addEventListener('click', () => {
+                currentDayOffset++;
+                updateImage(currentDayOffset);
+                updateButtons();
+            });
+    
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                currentDayOffset--;
+                updateImage(currentDayOffset);
+                updateButtons();
+            });
+    
+            // Initialiser avec l'image du jour actuel
             updateImage(currentDayOffset);
             updateButtons();
-        });
+        </script>
 
-        document.getElementById('nextBtn').addEventListener('click', () => {
-            currentDayOffset--;
-            updateImage(currentDayOffset);
-            updateButtons();
-        });
-
-        // Initialiser avec l'image du jour actuel
-        updateImage(currentDayOffset);
-        updateButtons();
-    </script>
-</body>
+	</body>
 </html>
+<!-- HTML -->
+<!-- Template By: LayoutFlow, URL: https://layoutflow.com/  -->
